@@ -1,0 +1,14 @@
+<head>
+    <title>Cadastro</title>
+    </head>
+    <body class="form_centro Fundo_degra">
+        <%- include('menu'); %>
+        <%- include('style'); %>
+      <form method="post" class="form_estilo">
+        <h2>Cadastro</h2>
+        <input type="text" name="nome" placeholder="Nome" class="campos_form" required>
+        <input type="email" name="email" placeholder="Email" class="campos_form" required>
+        <input type="password" name="senha" placeholder="Senha" class="campos_form" required>
+        <input type="submit" value="Cadastrar" class="btn_cor campo_enviar">
+      </form>
+    </body>
