@@ -39,6 +39,9 @@ app.get('/basquete',function(req,res){
     res.render('basquete.ejs');
 });
 
+app.get('/esportes',function(req,res){
+    res.render('esportes.ejs');
+});
 
 app.listen(3000,function(){
     console.log("Servidor Escutando na porta 3000");

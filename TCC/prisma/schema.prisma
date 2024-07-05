@@ -18,6 +18,7 @@ model Tb_usuarios {
   email                String                 @unique
   nome                 String
   senha                String
+  arquivo              String
   perguntas            Tb_perguntas[]
   respostas            Tb_respostas[]
   avaliacoes           Tb_avaliacoes[]
