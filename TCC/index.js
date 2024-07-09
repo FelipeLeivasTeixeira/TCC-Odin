@@ -1,9 +1,40 @@
 const express = require('express');
 const app = express();
+// const router = require('../routes/cadastroRoute');
+const multer = require('multer');
+const path = require('path');
+
+const UsuarioController = require('./controllers/usuarioController');
+const usuarioController = new UsuarioController();
+
 
 
 app.use(express.urlencoded({extended: true}))
     app.set('view engine', 'ejs')
+
+
+
+
+    // app.use('/cadastro', router);
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+          cb(null, 'public/'); // arquivos serão salvos neste diretório
+        },
+        filename: (req, file, cb) => {
+          cb(null, `${Date.now()}-${file.originalname}`); // gerar um nome diferente para arquivo
+        },
+      });
+      const upload = multer({ storage });
+      
+      // Rota de cadastro com upload de foto
+      app.post('/cadastro', upload.single('foto'), (req, res) => {
+        usuarioController.cadastrarUsuario(req, res);
+      });
+
+      app.get('/cadastro', (req, res) => {
+        res.render('cadastro');
+    });
+
 
 
     
@@ -11,11 +42,6 @@ app.use(express.urlencoded({extended: true}))
     res.render('main.ejs');
 });
 
-
-
-app.get('/cadastro',function(req,res){
-    res.render('cadastro.ejs');
-});
 
 app.get('/login',function(req,res){
     res.render('login.ejs');
