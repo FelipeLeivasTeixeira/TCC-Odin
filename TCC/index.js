@@ -1,24 +1,97 @@
 const express = require('express');
+const session = require('express-session');
 const app = express();
-// const router = require('../routes/cadastroRoute');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+
+    app.use(
+        session({
+        secret: 'sua_chave_secreta',
+        resave: false,
+        saveUninitialized: true,
+        })
+    );
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // Configuração do Passport (estratégia local)
+passport.use(
+    new LocalStrategy(
+      {
+        usernameField: 'email',
+        passwordField: 'senha',
+      },
+      async (email, senha, done) => {
+        try {
+          const user = await prisma.usuario.findUnique({
+            where: {
+              email,
+            },
+          });
+  
+          if (!user || user.senha !== senha) {
+            return done(null, false, { message: 'Email ou senha inválidos.' });
+          }
+  
+          return done(null, user);
+        } catch (err) {
+          return done(err);
+        }
+      }
+    )
+  );
+  
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await prisma.usuario.findUnique({
+        where: {
+          id,
+        },
+      });
+      done(null, user);
+    } catch (err) {
+      done(err);
+    }
+  });
+
+  
+
+// const router = require('./routes/cadastroRoute');
+const loginRoute = require('./routes/loginRoute');
+app.use('/login', loginRoute);
+
 const multer = require('multer');
 const path = require('path');
 
 const UsuarioController = require('./controllers/usuarioController');
 const usuarioController = new UsuarioController();
 
+const LoginController = require('./controllers/loginController');
+const loginController = new LoginController();
 
 
-app.use(express.urlencoded({extended: true}))
-    app.set('view engine', 'ejs')
+app.use(express.urlencoded({extended: true}));
+    app.set('view engine', 'ejs');
 
 
 
 
-    // app.use('/cadastro', router);
+
+    // Cadastro de Usuário
+
+    //configurar o multer
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
-          cb(null, 'public/'); // arquivos serão salvos neste diretório
+          cb(null, 'public/fotos'); // arquivos serão salvos neste diretório
         },
         filename: (req, file, cb) => {
           cb(null, `${Date.now()}-${file.originalname}`); // gerar um nome diferente para arquivo
@@ -31,23 +104,29 @@ app.use(express.urlencoded({extended: true}))
         usuarioController.cadastrarUsuario(req, res);
       });
 
+
       app.get('/cadastro', (req, res) => {
         res.render('cadastro');
     });
 
 
 
-    
+
+
+    app.get('/login', (req, res) => {
+        res.render('login');
+    });
+
+    app.post('/login', loginController.postLogin);
+
+
+
+
+
+
     app.get('/',function(req,res){
     res.render('main.ejs');
 });
-
-
-app.get('/login',function(req,res){
-    res.render('login.ejs');
-});
-
-
 
 app.get('/futebol',function(req,res){
     res.render('futebol.ejs');

@@ -1,4 +1,5 @@
 const UsuarioModel = require('../models/usuarioModel');
+const bcrypt = require('bcrypt');
 
 class UsuarioController {
   async cadastrarUsuario(req, res) {

@@ -6,9 +6,15 @@
         <%- include('style'); %>
       <form method="post" class="form_estilo">
         <h2>Login</h2>
+        
+        <% if (typeof error !== 'undefined') { %>
+          <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
         <input type="email" name="email" placeholder="Email" class="campos_form" required>
         <input type="password" name="senha" placeholder="Senha" class="campos_form" required>
         <input type="submit" value="Login" class="btn_cor campo_enviar"> <br><br>
         <a href="/cadastro">Não tem uma conta? Crie agora aqui!</a>
       </form>
+
     </body>
