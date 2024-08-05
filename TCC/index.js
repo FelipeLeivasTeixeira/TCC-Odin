@@ -28,13 +28,14 @@ passport.use(
       },
       async (email, senha, done) => {
         try {
-          const user = await prisma.usuario.findUnique({
+          const user = await prisma.tb_usuarios.findUnique({
             where: {
               email,
             },
           });
+          console.log(user);
   
-          if (!user || user.senha !== senha) {
+          if (!user || senha !== senha) {
             return done(null, false, { message: 'Email ou senha inválidos.' });
           }
   
@@ -52,7 +53,7 @@ passport.use(
   
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await prisma.usuario.findUnique({
+      const user = await prisma.tb_usuarios.findUnique({
         where: {
           id,
         },
