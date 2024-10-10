@@ -46,7 +46,7 @@
             top: 0;
             left: 0;
             z-index: 1000;
-            background-color: #080623;
+            
         }
 
         .form_centro {
@@ -97,12 +97,104 @@
       /* Estilizar a frase da tela inicial */
       .fraseInicio {
         font-size: 3rem;
-        font-family: 'Ga Maamli';
-        text-align: center;
+        text-align: left;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         color: rgb(255, 255, 255);
       }
-      
+      .fraseInicio{
+        text-align: center;
+      }
+      .divfraseInicio{
+        margin-left: 50px;
+      }
+
+      .botaoEntrar{
+        width: 15vw; /* Defina a largura desejada */
+        height: 4vw;
+        text-align: center; /* Centraliza o texto dentro do botão */
+        border-radius: 35%; /* Faz o círculo */
+        background-color: rgb(255, 155, 30);
+        color: #ffffff;
+        margin-left: 30%;
+        margin-top: 10%;
+        font-size: 20px;
+      }
+      .botaoEntrar:hover{
+        background-color: rgb(255, 170, 0);
+        color: #ffffff;
+      }
+
+      .fotoEntrar{
+        width: 15vw; /* Defina a largura desejada */
+        height: 4vw;
+        text-align: center; /* Centraliza o texto dentro do botão */
+        margin-left: 30%;
+        margin-top: 10%;
+        font-size: 20px;
+      }
+
+      .nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px; /* Ajuste o padding conforme necessário */
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 7vw; /* Largura do círculo */
+    height: 4vw; /* Altura do círculo */
+    background-color: rgb(255, 155, 30); /* Cor do círculo */
+    border-radius: 35%; /* Faz o círculo */
+    transform: translate(-50%, -50%); /* Centraliza o círculo */
+    z-index: -1; /* Coloca o círculo atrás do texto */
+}
+
+.nav-link:hover::before {
+    background-color: rgb(255, 170, 0); /* Cor do círculo ao passar o mouse (opcional) */
+}
+
+
+.containerEsporteTexto {
+  /* estilizar os fundos de textos sobre esportes */
+    width: 80%; /* Largura do contêiner */
+    max-width: 800px; /* Largura máxima */
+    background-color: rgb(75, 72, 72); /* Cor de fundo cinza */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    height: calc(100vh - 100px);
+    color: #ffffff;
+}
+
+.quadradoTexto{
+  padding-top: 15%;
+}
+
+.tituloEsporte {
+ 
+    color: #ffffff;
+    font-size: 60px;
+}
+
+.botaoTextoForum {
+  background-color: rgb(255, 155, 30);
+  color: #ffffff;
+}
+
+.botaoTextoForum:hover {
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+    background-color: rgb(255, 170, 0);
+}
+
+.chatIcon{
+
+  margin-right: 1vw;
+}
 
     </style>
 
